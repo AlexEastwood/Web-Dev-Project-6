@@ -62,18 +62,20 @@ function checkLetter(button) {
 
 addPhraseToDisplay(getRandomPhraseAsArray(phrases));
 
-
-
 startBtn.addEventListener("click", () => {
     const overlay = document.querySelector(".start");
     overlay.style.display = "none";
 });
 
 document.addEventListener("keydown", (e) => {
-    for (button in document.querySelectorAll("button")) {
+    let buttons = document.getElementsByTagName("button")
+    Array.from(buttons).forEach(button => {
         if (button.innerText === e.key) {
             button.classList.add("chosen");
         }
-    }
+    })
     let letterFound = checkLetter(e.key);
+    if (!letterFound) {
+        missed += 1;
+    }
 })
