@@ -21,28 +21,42 @@ function getRandomPhraseAsArray(arr) {
 
 function addPhraseToDisplay(arr) {
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i].length === 1 && arr[i].toUpperCase() === arr[i].toUpperCase() && arr[i] !== " ") { // comparing arr[i].toUpperCase against itself .toUpperCase ensures that it's a letter
+        if (arr[i].length === 1 && arr[i].toUpperCase() === arr[i].toUpperCase()) { // comparing arr[i].toUpperCase against itself .toUpperCase ensures that it's a letter
             const li = document.createElement("li");
             const node = document.createTextNode(arr[i]);
             li.appendChild(node);
-            li.classList.add("letter")
-
-            const ul = document.querySelector("#phrase ul");
-            ul.appendChild(li);
-        }
-        else if (arr[i] === " ") {
-            const li = document.createElement("li");
-            const node = document.createTextNode(arr[i]);
-            li.appendChild(node);
-            li.classList.add("space")
-
+            if (arr[i] === " ") {
+                li.classList.add("space");
+            }
+            else {
+                li.classList.add("letter");
+            }
             const ul = document.querySelector("#phrase ul");
             ul.appendChild(li);
         }
         else {
-            console.log("Invalid array entry")
+            console.log("Invalid array entry");
         }
 
+    }
+}
+
+function checkLetter(button) {
+    let letters = document.querySelectorAll(".letter");
+    let returnedLetter = "";
+
+    letters.forEach(letter => {
+        if (button === letter.innerText) {
+            letter.classList.add("show");
+            if (returnedLetter === "") {
+                returnedLetter = letter.innerText;
+            }
+        }
+    })
+    if (returnedLetter) {
+        return returnedLetter;
+    } else {
+        return null;
     }
 }
 
@@ -55,3 +69,11 @@ startBtn.addEventListener("click", () => {
     overlay.style.display = "none";
 });
 
+document.addEventListener("keydown", (e) => {
+    for (button in document.querySelectorAll("button")) {
+        if (button.innerText === e.key) {
+            button.classList.add("chosen");
+        }
+    }
+    let letterFound = checkLetter(e.key);
+})
