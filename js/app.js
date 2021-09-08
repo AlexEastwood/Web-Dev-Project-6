@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const qwerty = document.getElementById("qwerty");
 const phrase = document. getElementById("phrase");
 const startBtn = document.querySelector(".btn__reset");
@@ -61,6 +63,20 @@ function checkLetter(button) {
     }
 }
 
+function checkWin() {
+    let shown = document.querySelectorAll(".show");
+    let letters = document.querySelectorAll(".letter");
+    const overlay = document.querySelector(".start");
+    if (shown.length === letters.length) {
+        overlay.style.display = "flex";
+        overlay.classList.add("win");
+    }
+    else if (missed >= 5) {
+        overlay.style.display = "flex";
+        overlay.classList.add("lose");
+    }
+}
+
 addPhraseToDisplay(getRandomPhraseAsArray(phrases));
 
 startBtn.addEventListener("click", () => {
@@ -81,4 +97,5 @@ document.addEventListener("keydown", (e) => {
         heartsArray[missed].src = "images/lostHeart.png"
         missed ++;
     }
+    checkWin();
 })
