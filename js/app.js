@@ -55,7 +55,7 @@ function checkLetter(button) {
                 returnedLetter = letter.innerText;
             }
         }
-    })
+    });
     if (returnedLetter) {
         return returnedLetter;
     } else {
@@ -85,17 +85,17 @@ startBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (e) => {
-    let buttons = document.getElementsByTagName("button")
+    let buttons = document.getElementsByTagName("button");
     Array.from(buttons).forEach(button => {
         if (button.innerText === e.key) {
             button.classList.add("chosen");
         }
-    })
+    });
     let letterFound = checkLetter(e.key);
     if (!letterFound) {
-        let heartsArray = Array.from(hearts)
-        heartsArray[missed].src = "images/lostHeart.png"
+        let heartsArray = Array.from(hearts);
+        heartsArray[missed].src = "images/lostHeart.png";
         missed ++;
     }
     checkWin();
-})
+});
