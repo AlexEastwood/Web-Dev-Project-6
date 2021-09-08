@@ -2,6 +2,7 @@ const qwerty = document.getElementById("qwerty");
 const phrase = document. getElementById("phrase");
 const startBtn = document.querySelector(".btn__reset");
 let missed = 0; // tracks the number of wrong guesses the user has made
+let hearts = document.getElementsByTagName("img");
 
 const phrases = ["this is an example phrase", 
 "bullfrogs are the largest frogs in north america", 
@@ -76,6 +77,8 @@ document.addEventListener("keydown", (e) => {
     })
     let letterFound = checkLetter(e.key);
     if (!letterFound) {
-        missed += 1;
+        let heartsArray = Array.from(hearts)
+        heartsArray[missed].src = "images/lostHeart.png"
+        missed ++;
     }
 })
