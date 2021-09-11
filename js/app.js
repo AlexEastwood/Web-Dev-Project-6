@@ -47,12 +47,12 @@ function addPhraseToDisplay(arr) {
 
 function checkLetter(button) {
     let letters = phrase.querySelectorAll(".letter");
-    let returnedLetter = "";
+    let returnedLetter;
 
     letters.forEach(letter => {
         if (button === letter.innerText) {
             letter.classList.add("show");
-            if (returnedLetter === "") {
+            if (!returnedLetter) {
                 returnedLetter = letter.innerText;
             }
         }
