@@ -45,7 +45,7 @@ function addPhraseToDisplay(arr) {
 }
 
 function checkLetter(button) {
-    let letters = document.querySelectorAll(".letter");
+    let letters = phrase.querySelectorAll(".letter");
     let returnedLetter = "";
 
     letters.forEach(letter => {
@@ -99,3 +99,21 @@ document.addEventListener("keydown", (e) => {
     }
     checkWin();
 });
+
+qwerty.addEventListener("click", (e) => {
+    if (e.target.tagName == "BUTTON"){
+        let buttons = document.getElementsByTagName("button");
+        Array.from(buttons).forEach(button => {
+        if (button.innerText === e.target.innerText) {
+            button.classList.add("chosen");
+        }
+        });
+        let letterFound = checkLetter(e.target.innerText);
+        if (!letterFound) {
+            let heartsArray = Array.from(hearts);
+            heartsArray[missed].src = "images/lostHeart.png";
+            missed ++;
+        }
+        checkWin();
+    }
+})
