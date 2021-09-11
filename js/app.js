@@ -64,6 +64,23 @@ function checkLetter(button) {
     }
 }
 
+function userSelectsLetter(letter) {
+    let buttons = document.getElementsByTagName("button");
+    Array.from(buttons).forEach(button => {
+        if (button.innerText === letter) {
+            button.classList.add("chosen");
+        }
+    });
+    let letterFound = checkLetter(letter);
+    chosenLetters.push(letter);
+    if (!letterFound) {
+        let heartsArray = Array.from(hearts);
+        heartsArray[missed].src = "images/lostHeart.png";
+        missed ++;
+    }
+    checkWin();
+}
+
 function checkWin() {
     let shown = document.querySelectorAll(".show");
     let letters = document.querySelectorAll(".letter");
@@ -89,40 +106,12 @@ document.addEventListener("keydown", (e) => {
     if (chosenLetters.includes(e.key)) {
         return;
     }
-    let buttons = document.getElementsByTagName("button");
-    Array.from(buttons).forEach(button => {
-        if (button.innerText === e.key) {
-            button.classList.add("chosen");
-        }
-    });
-    let letterFound = checkLetter(e.key);
-    chosenLetters.push(e.key);
-    if (!letterFound) {
-        let heartsArray = Array.from(hearts);
-        heartsArray[missed].src = "images/lostHeart.png";
-        missed ++;
-    }
-    checkWin();
+    userSelectsLetter(e.key);
 });
 
 qwerty.addEventListener("click", (e) => {
     if (chosenLetters.includes(e.target.innerText)) {
         return;
-    }
-    if (e.target.tagName == "BUTTON"){
-        let buttons = document.getElementsByTagName("button");
-        Array.from(buttons).forEach(button => {
-        if (button.innerText === e.target.innerText) {
-            button.classList.add("chosen");
-        }
-        });
-        let letterFound = checkLetter(e.target.innerText);
-        chosenLetters.push(e.target.innerText);
-        if (!letterFound) {
-            let heartsArray = Array.from(hearts);
-            heartsArray[missed].src = "images/lostHeart.png";
-            missed ++;
-        }
-        checkWin();
-    }
-})
+    }   
+    userSelectsLetter(e.target.innerText);
+});
