@@ -103,15 +103,15 @@ startBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (e) => {
-    if (chosenLetters.includes(e.key)) {
-        return;
+    if (!chosenLetters.includes(e.key)) {
+        userSelectsLetter(e.key);
     }
-    userSelectsLetter(e.key);
+    
 });
 
 qwerty.addEventListener("click", (e) => {
-    if (chosenLetters.includes(e.target.innerText)) {
-        return;
+    if (!chosenLetters.includes(e.target.innerText) && e.target.tagName === "BUTTON") {
+        userSelectsLetter(e.target.innerText);
     }   
-    userSelectsLetter(e.target.innerText);
+    
 });
