@@ -5,6 +5,7 @@ const phrase = document. getElementById("phrase");
 const startBtn = document.querySelector(".btn__reset");
 let missed = 0; // tracks the number of wrong guesses the user has made
 let hearts = document.getElementsByTagName("img");
+let chosenLetters = [];
 
 const phrases = ["this is an example phrase", 
 "bullfrogs are the largest frogs in north america", 
@@ -85,6 +86,9 @@ startBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (e) => {
+    if (chosenLetters.includes(e.key)) {
+        return;
+    }
     let buttons = document.getElementsByTagName("button");
     Array.from(buttons).forEach(button => {
         if (button.innerText === e.key) {
@@ -92,6 +96,7 @@ document.addEventListener("keydown", (e) => {
         }
     });
     let letterFound = checkLetter(e.key);
+    chosenLetters.push(e.key);
     if (!letterFound) {
         let heartsArray = Array.from(hearts);
         heartsArray[missed].src = "images/lostHeart.png";
@@ -101,6 +106,9 @@ document.addEventListener("keydown", (e) => {
 });
 
 qwerty.addEventListener("click", (e) => {
+    if (chosenLetters.includes(e.target.innerText)) {
+        return;
+    }
     if (e.target.tagName == "BUTTON"){
         let buttons = document.getElementsByTagName("button");
         Array.from(buttons).forEach(button => {
@@ -109,6 +117,7 @@ qwerty.addEventListener("click", (e) => {
         }
         });
         let letterFound = checkLetter(e.target.innerText);
+        chosenLetters.push(e.target.innerText);
         if (!letterFound) {
             let heartsArray = Array.from(hearts);
             heartsArray[missed].src = "images/lostHeart.png";
